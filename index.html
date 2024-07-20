@@ -33,6 +33,10 @@
                 height: auto; /* Maintain aspect ratio */
             }
         }
+
+        .header {
+            transition: opacity 0.5s ease;
+        }
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -41,19 +45,16 @@
             const header = document.querySelector('.header');
 
             const hideHeader = () => {
-                header.style.display = 'none';
+                header.style.opacity = '0';
             };
 
             const resetHideTimeout = () => {
                 clearTimeout(hideTimeout);
-                header.style.display = 'block';
+                header.style.opacity = '1';
                 hideTimeout = setTimeout(hideHeader, 2000);
             };
 
             window.addEventListener('scroll', resetHideTimeout);
-
-            // Initial hide timeout
-            hideTimeout = setTimeout(hideHeader, 2000);
         });
     </script>
 </head>
