@@ -36,24 +36,24 @@
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                document.querySelector('.header').style.display = 'none';
-            }, 2000);
+            let hideTimeout;
 
-            let lastScrollTop = 0;
-            window.addEventListener('scroll', function() {
-                const header = document.querySelector('.header');
-                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const header = document.querySelector('.header');
 
-                if (scrollTop > lastScrollTop) {
-                    // Scroll Down
-                    header.style.display = 'none';
-                } else {
-                    // Scroll Up
-                    header.style.display = 'block';
-                }
-                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-            }, false);
+            const hideHeader = () => {
+                header.style.display = 'none';
+            };
+
+            const resetHideTimeout = () => {
+                clearTimeout(hideTimeout);
+                header.style.display = 'block';
+                hideTimeout = setTimeout(hideHeader, 2000);
+            };
+
+            window.addEventListener('scroll', resetHideTimeout);
+
+            // Initial hide timeout
+            hideTimeout = setTimeout(hideHeader, 2000);
         });
     </script>
 </head>
